@@ -49,6 +49,7 @@ then
 3) Send A File
 4) Receive A File
 5) Perform A Scan For Open Ports (Very Obvious)
+6) Reverse/Bind Shells
 0) Go Back
 END
 read -p "Option: " ncOp
