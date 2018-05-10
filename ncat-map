@@ -1,46 +1,52 @@
 #!/bin/bash
 #Version: Alpha 1.0
 
-#Pre-Initialization Stage
-reset () {
-  clear
-  figlet NCAT-MAP
-  echo "--------------------------------------------------------------------------------"
-}
-
 #Defining Colors
-black='\033[0;30m'
-red='\033[0;31m'
-
-
+Black='\033[0;30m'
+Red='\033[0;31m'
+Green='\033[0;32m'
+BrownOrange='\033[0;33m'
+Blue='\033[0;34m'
+Purple='\033[0;35m'
+Cyan='\033[0;36m'
+LightGray='\033[0;37m'
+DarkGray='\033[1;30m'
+LightRed='\033[1;31m'
+LightGreen='\033[1;32m'
+Yellow='\033[1;33m'
+LightBlue='\033[1;34m'
+LightPurple='\033[1;35m'
+LightCyan='\033[1;36m'
+White='\033[1;37m'
+NC='\033[0m'
 
 #Start
 clear
-figlet NCAT-MAP
-echo "--------------------------------------------------------------------------------"
-echo "|Made by BaconBombz|Hosted on GitHub|"
-echo "--------------------------------------------------------------------------------"
+printf ${LightGreen} && figlet NCAT-MAP
+printf "${LightCyan}--------------------------------------------------------------------------------${NC}\n"
+printf "${White}|${LightRed}Made by BaconBombz${NC}${White}|${LightRed}Hosted on GitHub${White}|${NC}\n"
+printf "${LightCyan}--------------------------------------------------------------------------------${NC}\n\n"
 
 #Not Taking Responsibility
-read -p "Do You Have Permission To Use This Tool On A Network? [yes/no]: " safety
+printf ${Yellow} && read -p "Do You Have Permission To Use This Tool On A Network? [yes/no]: " safety
 
 #Listing Menu
-reset
+clear
+printf "${LightGreen}------------------------------------Main Menu-----------------------------------${NC}\n\n"
+printf "${LightPurple}--------------------------------------------------------------------------------${NC}\n"
 if [ $safety == yes ]
 then
-  cat<< END
-1) NetCat
-2) NMap
-3) CryptCat
-0) Exit
-END
-echo "--------------------------------------------------------------------------------"
-read -p "Option: " Operation
+printf "${LightBlue}1) ${Yellow}NetCat\n"
+printf "${LightBlue}2) ${Yellow}NMap\n"
+printf "${LightBlue}3) ${Yellow}CryptCat\n"
+printf "${LightBlue}0) ${Yellow}Exit\n"
+printf "${LightPurple}--------------------------------------------------------------------------------${NC}\n"
+printf ${Yellow} && read -p "Option: " Operation
 elif [ $safety == no ]
 then
   echo "THEN NEVER TRY THIS."
   exit
-else
+else${Yellow}
   echo "Hmm? Try Again."
   exit
 fi
@@ -48,28 +54,31 @@ fi
 #NetCat
 if [ $Operation == 1 ]
 then
-  reset
-  cat<<END
-1) Create A Listener
-2) Connect To A Listener
-3) Send A File
-4) Receive A File
-5) Perform A Scan For Open Ports (Very Obvious)
-6) Reverse/Bind Shells
-0) Go Back
-END
-read -p "Option: " ncOp
+  clear
+  printf "${LightGreen}----------------------------------NetCat Menu-----------------------------------${NC}\n\n"
+  printf "${LightPurple}--------------------------------------------------------------------------------${NC}\n"
+  printf "${LightBlue}1) ${Yellow}Create A Listener\n"
+  printf "${LightBlue}2) ${Yellow}Connect To A Listener\n"
+  printf "${LightBlue}3) ${Yellow}Send A File\n"
+  printf "${LightBlue}4) ${Yellow}Receive A File\n"
+  printf "${LightBlue}5) ${Yellow}Perform A Scan For Open Ports (Very Obvious)\n"
+  printf "${LightBlue}6) ${Yellow}Reverse/Bind Shells\n"
+  printf "${LightBlue}0) ${Yellow}Go Back\n"
+  printf "${LightPurple}--------------------------------------------------------------------------------${NC}\n"
+  printf ${Yellow} && read -p "Option: " ncOp
 fi
 
 #ncOp 1
 if [ $ncOp == 1 ]
 then
-  reset
-  read -p "Create A Listener? [yes/no]: " cListener
+  clear
+  printf "${LightGreen}----------------------------------Create A Listener-----------------------------------${NC}\n\n"
+  printf ${Yellow} && read -p "Create A Listener? [yes/no]: " cListener
   if [ $cListener == yes ]
   then
-    reset
-    read -p "Use Verbose Mode? [yes/no]: " vModeOn
+    clear
+    printf "${LightGreen}----------------------------------Create A Listener-----------------------------------${NC}\n\n"
+    printf ${Yellow} && read -p "Use Verbose Mode? [yes/no]: " vModeOn
     if [ $vModeOn == yes ]
     then
       reset
