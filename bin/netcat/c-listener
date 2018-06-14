@@ -1,0 +1,85 @@
+#!/bin/bash
+
+reset () {
+  clear
+  figlet NCAT-MAP
+  echo "--------------------------------------------------------------------------------"
+}
+
+ip=$(hostname -I | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')
+
+reset
+read -p "Create A Listener? [yes/no]: " cListener
+if [ $cListener == yes ]
+then
+    reset
+    read -p "Use Verbose Mode? [yes/no]: " vModeOn
+    if [ $vModeOn == yes ]
+    then
+      reset
+      read -p "Port: " cLVMOPort
+      reset
+      echo "Press CTRL-C To Stop"
+      echo "3"
+      sleep 1
+      echo "2"
+      sleep 1
+      echo "1"
+      sleep 1
+      reset
+      echo "NetCat Is Active"
+      echo "Your IP is: $ip"
+      echo "Your Port is: $cLVMOPort"
+      echo "--------------------------------------------------------------------------------"
+      nc -l -p $cLVMOPort -vv
+      echo "--------------------------------------------------------------------------------"
+      read -p "Go Back? [yes/no]: " back
+      if [ $back == yes ]
+      then
+        ./ncat-map
+      elif [ $back == no ]
+      then
+        clear
+        exit
+      fi
+    elif [ $vModeOn == no ]
+    then
+      reset
+      read -p "Port: " cLVMOPort
+      reset
+      echo "Press CTRL-C To Stop"
+      echo "3"
+      sleep 1
+      echo "2"
+      sleep 1
+      echo "1"
+      sleep 1
+      reset
+      echo "NetCat Is Active"
+      echo "Your IP is: $ip"
+      echo "Your Port is: $cLVMOPort"
+      nc -l -p $cLVMOPort
+      echo "--------------------------------------------------------------------------------"
+      read -p "Go Back? [yes/no]: " back
+      if [ $back == yes ]
+      then
+        ./ncat-map
+      elif [ $back == no ]
+      then
+        clear
+        exit
+      fi
+    fi
+elif  [ $cListener == no ]
+then
+  reset
+  read -p "Go Back? [yes/no]: " back
+  if [ $back == yes ]
+  then
+    ./ncat-map
+  elif [ $back == no ]
+  then
+    clear
+    exit
+  fi
+fi

@@ -1,52 +1,42 @@
 #!/bin/bash
 #Version: Alpha 1.0
 
-#Defining Colors
-Black='\033[0;30m'
-Red='\033[0;31m'
-Green='\033[0;32m'
-BrownOrange='\033[0;33m'
-Blue='\033[0;34m'
-Purple='\033[0;35m'
-Cyan='\033[0;36m'
-LightGray='\033[0;37m'
-DarkGray='\033[1;30m'
-LightRed='\033[1;31m'
-LightGreen='\033[1;32m'
-Yellow='\033[1;33m'
-LightBlue='\033[1;34m'
-LightPurple='\033[1;35m'
-LightCyan='\033[1;36m'
-White='\033[1;37m'
-NC='\033[0m'
+reset () {
+  clear
+  figlet NCAT-MAP
+  echo "--------------------------------------------------------------------------------"
+}
 
 #Start
 clear
-printf ${LightGreen} && figlet NCAT-MAP
-printf "${LightCyan}--------------------------------------------------------------------------------${NC}\n"
-printf "${White}|${LightRed}Made by BaconBombz${NC}${White}|${LightRed}Hosted on GitHub${White}|${NC}\n"
-printf "${LightCyan}--------------------------------------------------------------------------------${NC}\n\n"
+figlet NCAT-MAP
+echo "--------------------------------------------------------------------------------"
+echo "|Made by BaconBombz|Hosted on GitHub|"
+echo "--------------------------------------------------------------------------------"
 
 #Not Taking Responsibility
-printf ${Yellow} && read -p "Do You Have Permission To Use This Tool On A Network? [yes/no]: " safety
+read -p "Do You Have Permission To Use This Tool On A Network? [yes/no]: " safety
 
 #Listing Menu
-clear
-printf "${LightGreen}------------------------------------Main Menu-----------------------------------${NC}\n\n"
-printf "${LightPurple}--------------------------------------------------------------------------------${NC}\n"
 if [ $safety == yes ]
 then
-printf "${LightBlue}1) ${Yellow}NetCat\n"
-printf "${LightBlue}2) ${Yellow}NMap\n"
-printf "${LightBlue}3) ${Yellow}CryptCat\n"
-printf "${LightBlue}0) ${Yellow}Exit\n"
-printf "${LightPurple}--------------------------------------------------------------------------------${NC}\n"
-printf ${Yellow} && read -p "Option: " Operation
+  clear
+  figlet NCAT-MAP
+  echo "--------------------------------------------------------------------------------"
+  cat << END
+1) NetCat
+2) CryptCat
+3) Nmap
+0) Exit
+END
+  echo "--------------------------------------------------------------------------------"
+  read -p "Option: " Operation
+
 elif [ $safety == no ]
 then
   echo "THEN NEVER TRY THIS."
   exit
-else${Yellow}
+else
   echo "Hmm? Try Again."
   exit
 fi
@@ -55,86 +45,27 @@ fi
 if [ $Operation == 1 ]
 then
   clear
-  printf "${LightGreen}----------------------------------NetCat Menu-----------------------------------${NC}\n\n"
-  printf "${LightPurple}--------------------------------------------------------------------------------${NC}\n"
-  printf "${LightBlue}1) ${Yellow}Create A Listener\n"
-  printf "${LightBlue}2) ${Yellow}Connect To A Listener\n"
-  printf "${LightBlue}3) ${Yellow}Send A File\n"
-  printf "${LightBlue}4) ${Yellow}Receive A File\n"
-  printf "${LightBlue}5) ${Yellow}Perform A Scan For Open Ports (Very Obvious)\n"
-  printf "${LightBlue}6) ${Yellow}Reverse/Bind Shells\n"
-  printf "${LightBlue}0) ${Yellow}Go Back\n"
-  printf "${LightPurple}--------------------------------------------------------------------------------${NC}\n"
-  printf ${Yellow} && read -p "Option: " ncOp
+  figlet NCAT-MAP
+  echo "----------------------------------NetCat Menu-----------------------------------"
+  echo "1) Create A Listener"
+  echo "2) Connect To A Listener"
+  echo "3) Send A File"
+  echo "4) Receive A File"
+  echo "5) Perform A Scan For Open Ports (Very Obvious)"
+  echo "6) Reverse/Bind Shells"
+  echo "0) Go Back"
+  echo "--------------------------------------------------------------------------------"
+  read -p "Option: " ncOp
 fi
 
 #ncOp 1
 if [ $ncOp == 1 ]
 then
-  clear
-  printf "${LightGreen}----------------------------------Create A Listener-----------------------------------${NC}\n\n"
-  printf ${Yellow} && read -p "Create A Listener? [yes/no]: " cListener
-  if [ $cListener == yes ]
-  then
-    clear
-    printf "${LightGreen}----------------------------------Create A Listener-----------------------------------${NC}\n\n"
-    printf ${Yellow} && read -p "Use Verbose Mode? [yes/no]: " vModeOn
-    if [ $vModeOn == yes ]
-    then
-      reset
-      read -p "Port: " cLVMOPort
-      clear
-      figlet NCAT-MAP
-      echo "--------------------------------------------------------------------------------"
-      echo "Press CTRL-C To Stop"
-      echo "3"
-      sleep 1
-      echo "2"
-      sleep 1
-      echo "1"
-      sleep 1
-      reset
-      echo "NetCat Is Active"
-      nc -l -p $cLVMOPort -vv
-      echo "--------------------------------------------------------------------------------"
-      read -p "Go Back? [yes/no]: " back
-      if [ $back == yes ]
-      then
-        ./ncat-map
-      fi
-    elif [ $vModeOn == no ]
-    then
-      reset
-      read -p "Port: " cLVMOPort
-      reset
-      echo "Press CTRL-C To Stop"
-      echo "3"
-      sleep 1
-      echo "2"
-      sleep 1
-      echo "1"
-      sleep 1
-      reset
-      echo "NetCat Is Active"
-      nc -l -p $cLVMOPort
-      echo "--------------------------------------------------------------------------------"
-      read -p "Go Back? [yes/no]: " back
-      if [ $back == yes ]
-      then
-        ./ncat-map
-      fi
-    fi
-  elif  [ $cListener == no ]
-  then
-    reset
-    read -p "Go Back? [yes/no]: " back
-    if [ $back == yes ]
-    then
-      ./ncat-map
-    fi
-  fi
+  ./bin/netcat/c-listener
+elif [ $ncOp == 2 ]
+then
+  echo "hi"
 fi
-
 #ncOp 2
 if [ $ncOp == 2 ]
 then
@@ -365,19 +296,19 @@ then
     echo "NetCat Is Active"
     echo "Please Wait. Ports Are Being Scanned."
     mkdir Scan-Results/$sNOPRFName
-    touch Scan-Results/$sNOPRFName/$sNOPRFName.txt
-    nc -z -vv -w 5 $sNOPTIP $sNOPPRange > Scan-Results/$sNOPRFName/$sNOPRFName.txt 2>&1
-    if [ -e Scan-Results/$sNOPRFName/$sNOPRFName.txt ]
+    touch Scan-Results/$sNOPRFName/$sNOPRFName.log
+    nc -z -vv -w 5 $sNOPTIP $sNOPPRange > Scan-Results/$sNOPRFName/$sNOPRFName.log 2>&1
+    if [ -e Scan-Results/$sNOPRFName/$sNOPRFName.log ]
     then
     echo "--------------------------------------------------------------------------------"
-    echo "Scan Results Saved To Scan-Results/$sNOPRFName/$sNOPRFName.txt "
+    echo "Scan Results Saved To Scan-Results/$sNOPRFName/$sNOPRFName.log "
     echo "--------------------------------------------------------------------------------"
     read -p "Go Back? [yes/no]: " back
     if [ $back == yes ]
     then
       ./ncat-map
     fi
-  elif [ ! -e Scan-Results/$sNOPRFName/$sNOPRFName.txt ]
+  elif [ ! -e Scan-Results/$sNOPRFName/$sNOPRFName.log ]
     then
       echo "--------------------------------------------------------------------------------"
       echo "File Was Not Created "
